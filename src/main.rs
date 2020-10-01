@@ -19,7 +19,7 @@ fn main() {
 // A leap year calculation program
 //
 // is_leap
-// INPUT  || year : interger
+// INPUT  || year : u32
 // OUTPUT || leap : boolean
 //
 // Leap years in the first half of the 21st century is therefore
@@ -34,5 +34,31 @@ fn main() {
     let check_year = leap_year_solver::is_leap(test_year);
 
     println!("{}",check_year);
+}*/
+
+// Module 3:
+// Raindrops (a variation on fizzbuzz)
+//
+// raindrop_sound
+// INPUT  || number : u32
+// OUTPUT || sounds : string
+//
+// Rules for Raindrops:
+// 1. if it has 3 as a factor, add 'Pling'
+// 2. if it has 5 as a factor, add 'Plang'
+// 3. if it has 7 as a factor, add 'Plong'
+// 4. NOT 3, 5, or 7 as factors, result is just the number itself
+//
+// Examples: 35 has 5 and 7 as factors
+//           2048 has none of the factors
+
+mod raindrops;
+use crate::raindrops::raindrops_solver;
+fn main() {
+
+    let raindrop_number : u32 = 35;
+
+    let drop_sound = raindrops_solver::raindrop_sound(raindrop_number);
+
+    println!("{}",drop_sound);
 }
-*/
