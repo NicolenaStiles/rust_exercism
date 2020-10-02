@@ -39,7 +39,7 @@ fn main() {
 // Module 3:
 // Raindrops (a variation on fizzbuzz)
 //
-// raindrop_sound
+// raindrops_solver
 // INPUT  || number : u32
 // OUTPUT || sounds : string
 //
@@ -51,7 +51,7 @@ fn main() {
 //
 // Examples: 35 has 5 and 7 as factors
 //           2048 has none of the factors
-
+/*
 mod raindrops;
 use crate::raindrops::raindrops_solver;
 fn main() {
@@ -62,3 +62,29 @@ fn main() {
 
     println!("{}",drop_sound);
 }
+*/
+// Module 4:
+// nth prime
+//
+// nth_prime_solver
+// INPUT  || number : u8
+// OUTPUT || number : u32
+//
+// Given a number n, determine what the nth prime is.
+// By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see that the 6th prime
+// is 13 if your language provides methods in the standard library to deal with prime numbers, pretend they
+// don't exist and implement them yourself.
+
+mod nth_prime;
+use crate::nth_prime::nth_prime_solver;
+fn main() {
+
+    let nth : u8 = 10;
+
+    let nth_prime_num = nth_prime_solver::nth_prime_calc(nth);
+
+    println!("{} is the {}th prime number.", nth_prime_num, nth);
+
+}
+
+// Module 5:
