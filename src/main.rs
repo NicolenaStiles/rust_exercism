@@ -90,14 +90,13 @@ s
 // Module 5:
 // bottles of beer song
 //
-//  sing_beer_song
-//  prints the lyrics to the song "99 bottles of beer".
+// sing_beer_song
+// prints the lyrics to the song "99 bottles of beer".
 // INPUT  || beer_number : u8
 
 mod bottles_of_beer;
 use crate::bottles_of_beer::bottles_of_beer_singer;
 fn main() {
-    let beer_number = 10;
-
+    let beer_number = 5;
     bottles_of_beer_singer::sing_beer_song(beer_number);
 }
