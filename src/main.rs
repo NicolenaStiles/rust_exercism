@@ -74,11 +74,11 @@ fn main() {
 // By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see that the 6th prime
 // is 13 if your language provides methods in the standard library to deal with prime numbers, pretend they
 // don't exist and implement them yourself.
-
+/*
 mod nth_prime;
 use crate::nth_prime::nth_prime_solver;
 fn main() {
-
+s
     let nth : u8 = 10;
 
     let nth_prime_num = nth_prime_solver::nth_prime_calc(nth);
@@ -86,5 +86,18 @@ fn main() {
     println!("{} is the {}th prime number.", nth_prime_num, nth);
 
 }
-
+*/
 // Module 5:
+// bottles of beer song
+//
+//  sing_beer_song
+//  prints the lyrics to the song "99 bottles of beer".
+// INPUT  || beer_number : u8
+
+mod bottles_of_beer;
+use crate::bottles_of_beer::bottles_of_beer_singer;
+fn main() {
+    let beer_number = 10;
+
+    bottles_of_beer_singer::sing_beer_song(beer_number);
+}
