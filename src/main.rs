@@ -163,14 +163,14 @@ fn main() {
 // Find the difference between the square of the sum and the sum of the squares of the first N
 // natural numbers.
 //
-// INPUT  || NO INPUT
+// INPUT  || value : u32
 //
 // The square of the sum of the first ten natural numbers is (1 + 2 + ... + 10)² = 55² = 3025.
 // The sum of the squares of the first ten natural numbers is 1² + 2² + ... + 10² = 385.
 //
 // Hence the difference between the square of the sum of the first ten natural numbers and the sum
 // of the squares of the first ten natural numbers is 3025 - 385 = 2640.
-
+/*
 mod difference_of_squares;
 use crate::difference_of_squares::square_difference_solver;
 
@@ -178,4 +178,26 @@ fn main () {
     let value : u32  = 10;
     let square_diff : u32 =  square_difference_solver::solve_square_difference(value);
     println!("For {}, the difference of squares is {}.", value, square_diff);
+}
+*/
+// Module 8:
+// Sum Of Multiples
+//
+// solve_sum_of_multiples
+// Given a number, find the sum of all the unique multiples of particular numbers up
+// to but not including that number.
+//
+// INPUT  || value : u32
+//
+// If we list all the natural numbers below 20 that are multiples of 3 or 5, we get
+// 3, 5, 6, 9, 10, 12, 15, and 18.
+// The sum of these multiples is 78.
+
+mod sum_of_multiples;
+use crate::sum_of_multiples::sum_of_multiples_solver;
+
+fn main() {
+    let mut multiples : Vec<u32> = [3, 5].to_vec();
+    let max_val : u32 = 20;
+    sum_of_multiples_solver::solve_sum_of_multiples(multiples.as_mut_slice(), max_val);
 }
