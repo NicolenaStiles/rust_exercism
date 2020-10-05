@@ -94,6 +94,22 @@ s
 // sing_beer_song
 // prints the lyrics to the song "99 bottles of beer".
 // INPUT  || beer_number : u8
+// OUTPUT || NO RETURN, prints directly to console
+//
+// 99 bottles of beer on the wall, 99 bottles of beer.
+// Take one down and pass it around, 98 bottles of beer on the wall.
+//
+// ...
+//
+// 2 bottles of beer on the wall, 2 bottles of beer.
+// Take one down and pass it around, 1 bottle of beer on the wall.
+//
+// 1 bottle of beer on the wall, 1 bottle of beer.
+// Take it down and pass it around, no more bottles of beer on the wall.
+//
+// No more bottles of beer on the wall, no more bottles of beer.
+// Go to the store and buy some more, 99 bottles of beer on the wall.
+
 /*
 mod bottles_of_beer;
 use crate::bottles_of_beer::bottles_of_beer_singer;
@@ -110,6 +126,7 @@ fn main() {
 // expand_proverb
 // Given a list of inputs, generate the relevant proverb.
 // INPUT  || nouns : []
+// OUTPUT || NO RETURN, prints directly to console
 //
 // For want of a horseshoe nail, a kingdom was lost, or so the saying goes.
 // Given a list of inputs, generate the relevant proverb. For example, given the list
@@ -127,7 +144,7 @@ fn main() {
 // Note that the list of inputs may vary; your solution should be able to handle lists of arbitrary
 // length and content. No line of the output text should be a static, unchanging string; all should
 // vary according to the input given.
-
+/*
 mod proverb;
 use crate::proverb::proverb_expander;
 
@@ -136,4 +153,29 @@ fn main() {
     let input_nouns = ["nail", "shoe", "horse", "rider", "message", "battle", "kingdom"];
 
     proverb_expander::expand_proverb(&input_nouns);
+}
+*/
+
+// Module 7:
+// difference of squares
+//
+// solve_square_difference
+// Find the difference between the square of the sum and the sum of the squares of the first N
+// natural numbers.
+//
+// INPUT  || NO INPUT
+//
+// The square of the sum of the first ten natural numbers is (1 + 2 + ... + 10)² = 55² = 3025.
+// The sum of the squares of the first ten natural numbers is 1² + 2² + ... + 10² = 385.
+//
+// Hence the difference between the square of the sum of the first ten natural numbers and the sum
+// of the squares of the first ten natural numbers is 3025 - 385 = 2640.
+
+mod difference_of_squares;
+use crate::difference_of_squares::square_difference_solver;
+
+fn main () {
+    let value : u32  = 10;
+    let square_diff : u32 =  square_difference_solver::solve_square_difference(value);
+    println!("For {}, the difference of squares is {}.", value, square_diff);
 }
