@@ -199,5 +199,6 @@ use crate::sum_of_multiples::sum_of_multiples_solver;
 fn main() {
     let mut multiples : Vec<u32> = [3, 5].to_vec();
     let max_val : u32 = 20;
-    sum_of_multiples_solver::solve_sum_of_multiples(multiples.as_mut_slice(), max_val);
+    let mult_sum : u32 = sum_of_multiples_solver::solve_sum_of_multiples(multiples.as_mut_slice(), max_val);
+    println!("{}", mult_sum);
 }
