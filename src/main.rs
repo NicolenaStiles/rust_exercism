@@ -223,6 +223,7 @@ extern crate termion;
 use termion::event::Key;
 use termion::input::TermRead;
 use termion::raw::IntoRawMode;
+use termion::color;
 use std::io::{Write, stdout, stdin};
 
 fn main() {
@@ -234,32 +235,120 @@ fn main() {
                                                 "Difference of Squares".to_string(),
                                                 "Sum of Multiples".to_string()];
 
-    let stdin = stdin();
     let mut stdout = stdout().into_raw_mode().unwrap();
 
     write!(stdout,
-           "{}{}This is a one line test.{}",
-           termion::clear::All,
+           "{}{}{}--------------------",
            termion::cursor::Goto(1, 1),
+           termion::clear::All,
            termion::cursor::Hide)
             .unwrap();
-    stdout.flush().unwrap();
 
     write!(stdout,
-           "{}This is a two line test.{}",
+           "{}{}EXERCISIM MODULES",
            termion::cursor::Goto(1, 2),
            termion::cursor::Hide)
             .unwrap();
-    stdout.flush().unwrap();
 
     write!(stdout,
-           "{}This is a three line test.{}",
+           "{}{}--------------------",
            termion::cursor::Goto(1, 3),
            termion::cursor::Hide)
             .unwrap();
-    stdout.flush().unwrap();
+
+    let mut y_offset : u16 = 4;
+
+    for n in &exercisim_modules {
+        write!(stdout,
+               "{}{}{}",
+               termion::cursor::Goto(1, y_offset),
+               n,
+               termion::cursor::Hide)
+                .unwrap();
+        stdout.flush().unwrap();
+
+        y_offset = y_offset + 1;
+    }
+
+    // enabling cursor movement
+    let stdin = stdin();
+    y_offset = 4;
+    let mut mod_idx : u8 = 0;
+
+    for c in stdin.keys() {
+        match c.unwrap() {
+            Key::Char('q') => break,
+            Key::Up => {
+                if mod_idx != 0 {
+                    mod_idx -= 1;
+                    y_offset -= 1;
+                }
+
+                write!(stdout,
+                       "{}{} => {}{}",
+                       termion::cursor::Goto(1, y_offset),
+                       termion::clear::CurrentLine,
+                       exercisim_modules[mod_idx as usize],
+                       termion::cursor::Hide)
+                        .unwrap();
+                stdout.flush().unwrap();
+            },
+            Key::Down => {
+                if mod_idx <= 8 {
+                    mod_idx += 1;
+                    y_offset += 1;
+                }
+
+                write!(stdout,
+                       "{}{} => {}{}",
+                       termion::cursor::Goto(1, y_offset),
+                       termion::clear::CurrentLine,
+                       exercisim_modules[mod_idx as usize],
+                       termion::cursor::Hide)
+                        .unwrap();
+                stdout.flush().unwrap();
+            },
+            _ => {}
+        }
+
+        for n in &exercisim_modules {
+            write!(stdout,
+                   "{}{}{}",
+                   termion::cursor::Goto(1, y_offset),
+                   n,
+                   termion::cursor::Hide)
+                    .unwrap();
+            stdout.flush().unwrap();
+
+        }
+    }
 
     write!(stdout, "{}", termion::cursor::Show).unwrap();
+
+    // // enabling cursor movement
+    // let stdin = stdin();
+    //
+    // let y_min : u16 = 4;
+    // let mut y_val : u16 = 4;
+    //
+    // write!(stdout,
+    //        "{}-->",
+    //        termion::cursor::Goto(1, y_min))
+    //         .unwrap();
+    //
+    // for c in stdin.keys() {
+    //
+
+    //     stdout.flush().unwrap();
+    //
+    //     // write cursor movement to screen
+    //     write!(stdout,
+    //            "{}-->",
+    //            termion::cursor::Goto(1, y_val))
+    //             .unwrap();
+    // }
+    //
+
 }
 
 /*
