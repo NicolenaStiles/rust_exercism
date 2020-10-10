@@ -192,7 +192,7 @@ fn main () {
 // If we list all the natural numbers below 20 that are multiples of 3 or 5, we get
 // 3, 5, 6, 9, 10, 12, 15, and 18.
 // The sum of these multiples is 78.
-
+/*
 mod sum_of_multiples;
 use crate::sum_of_multiples::sum_of_multiples_solver;
 
@@ -202,3 +202,109 @@ fn main() {
     let mult_sum : u32 = sum_of_multiples_solver::solve_sum_of_multiples(multiples.as_mut_slice(), max_val);
     println!("{}", mult_sum);
 }
+*/
+
+// Graphical Testing
+
+// extern crate termion;
+//
+// use termion::{color, style};
+//
+// use std::io;
+//
+// fn main() {
+//     println!("{}Red", color::Fg(color::Red));
+//     println!("{}Blue", color::Fg(color::Blue));
+//     println!("{}Blue'n'Bold{}", style::Bold, style::Reset);
+//     println!("{}Just plain italic", style::Italic);
+// }
+extern crate termion;
+
+use termion::event::Key;
+use termion::input::TermRead;
+use termion::raw::IntoRawMode;
+use std::io::{Write, stdout, stdin};
+
+fn main() {
+    // import string array of module names
+    // VERIFY THIS IS UP TO DATE!!!
+    let mut exercisim_modules : [String; 8] = ["Hello World".to_string(),"Leap Year".to_string(),
+                                                "Raindrops".to_string(),"Nth Prime".to_string(),
+                                                "Beer Song".to_string(), "Proverb".to_string(),
+                                                "Difference of Squares".to_string(),
+                                                "Sum of Multiples".to_string()];
+
+    let stdin = stdin();
+    let mut stdout = stdout().into_raw_mode().unwrap();
+
+    write!(stdout,
+           "{}{}This is a one line test.{}",
+           termion::clear::All,
+           termion::cursor::Goto(1, 1),
+           termion::cursor::Hide)
+            .unwrap();
+    stdout.flush().unwrap();
+
+    write!(stdout,
+           "{}This is a two line test.{}",
+           termion::cursor::Goto(1, 2),
+           termion::cursor::Hide)
+            .unwrap();
+    stdout.flush().unwrap();
+
+    write!(stdout,
+           "{}This is a three line test.{}",
+           termion::cursor::Goto(1, 3),
+           termion::cursor::Hide)
+            .unwrap();
+    stdout.flush().unwrap();
+
+    write!(stdout, "{}", termion::cursor::Show).unwrap();
+}
+
+/*
+extern crate termion;
+
+use termion::event::Key;
+use termion::input::TermRead;
+use termion::raw::IntoRawMode;
+use std::io::{Write, stdout, stdin};
+
+fn main() {
+    let stdin = stdin();
+    let mut stdout = stdout().into_raw_mode().unwrap();
+
+    write!(stdout,
+           "{}{}q to exit. Type stuff, use alt, and so on.{}",
+           termion::clear::All,
+           termion::cursor::Goto(1, 1),
+           termion::cursor::Hide)
+            .unwrap();
+    stdout.flush().unwrap();
+
+    for c in stdin.keys() {
+        write!(stdout,
+               "{}{}",
+               termion::cursor::Goto(1, 1),
+               termion::clear::CurrentLine)
+                .unwrap();
+
+        match c.unwrap() {
+            Key::Char('q') => break,
+            Key::Char(c) => println!("{}", c),
+            Key::Alt(c) => println!("^{}", c),
+            Key::Ctrl(c) => println!("*{}", c),
+            Key::Esc => println!("ESC"),
+            Key::Left => println!("←"),
+            Key::Right => println!("→"),
+            Key::Up => println!("↑"),
+            Key::Down => println!("↓"),
+            Key::Backspace => println!("×"),
+            _ => {}
+        }
+        stdout.flush().unwrap();
+    }
+
+    write!(stdout, "{}", termion::cursor::Show).unwrap();
+}
+*/
