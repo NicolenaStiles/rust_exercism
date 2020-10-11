@@ -220,23 +220,26 @@ fn main() {
 // }
 extern crate termion;
 
+use termion::color;
 use termion::event::Key;
 use termion::input::TermRead;
 use termion::raw::IntoRawMode;
-use termion::color;
 use std::io::{Write, stdout, stdin};
 
 fn main() {
     // import string array of module names
     // VERIFY THIS IS UP TO DATE!!!
-    let mut exercisim_modules : [String; 8] = ["Hello World".to_string(),"Leap Year".to_string(),
+    let exercisim_modules : [String; 8] = ["Hello World".to_string(),"Leap Year".to_string(),
                                                 "Raindrops".to_string(),"Nth Prime".to_string(),
                                                 "Beer Song".to_string(), "Proverb".to_string(),
                                                 "Difference of Squares".to_string(),
                                                 "Sum of Multiples".to_string()];
 
+    // input and output declarations
+    let stdin = stdin();
     let mut stdout = stdout().into_raw_mode().unwrap();
 
+    // writing the menu
     write!(stdout,
            "{}{}{}--------------------",
            termion::cursor::Goto(1, 1),
@@ -256,144 +259,90 @@ fn main() {
            termion::cursor::Hide)
             .unwrap();
 
-    let mut y_offset : u16 = 4;
-
+    let mut y : u16 = 4;
     for n in &exercisim_modules {
         write!(stdout,
                "{}{}{}",
-               termion::cursor::Goto(1, y_offset),
+               termion::cursor::Goto(1, y),
                n,
                termion::cursor::Hide)
                 .unwrap();
         stdout.flush().unwrap();
 
-        y_offset = y_offset + 1;
+        y = y + 1;
     }
 
-    // enabling cursor movement
-    let stdin = stdin();
-    y_offset = 4;
-    let mut mod_idx : u8 = 0;
-
-    for c in stdin.keys() {
-        match c.unwrap() {
-            Key::Char('q') => break,
-            Key::Up => {
-                if mod_idx != 0 {
-                    mod_idx -= 1;
-                    y_offset -= 1;
-                }
-
-                write!(stdout,
-                       "{}{} => {}{}",
-                       termion::cursor::Goto(1, y_offset),
-                       termion::clear::CurrentLine,
-                       exercisim_modules[mod_idx as usize],
-                       termion::cursor::Hide)
-                        .unwrap();
-                stdout.flush().unwrap();
-            },
-            Key::Down => {
-                if mod_idx <= 8 {
-                    mod_idx += 1;
-                    y_offset += 1;
-                }
-
-                write!(stdout,
-                       "{}{} => {}{}",
-                       termion::cursor::Goto(1, y_offset),
-                       termion::clear::CurrentLine,
-                       exercisim_modules[mod_idx as usize],
-                       termion::cursor::Hide)
-                        .unwrap();
-                stdout.flush().unwrap();
-            },
-            _ => {}
-        }
-
-        for n in &exercisim_modules {
-            write!(stdout,
-                   "{}{}{}",
-                   termion::cursor::Goto(1, y_offset),
-                   n,
-                   termion::cursor::Hide)
-                    .unwrap();
-            stdout.flush().unwrap();
-
-        }
-    }
-
-    write!(stdout, "{}", termion::cursor::Show).unwrap();
-
-    // // enabling cursor movement
-    // let stdin = stdin();
-    //
-    // let y_min : u16 = 4;
-    // let mut y_val : u16 = 4;
-    //
-    // write!(stdout,
-    //        "{}-->",
-    //        termion::cursor::Goto(1, y_min))
-    //         .unwrap();
-    //
-    // for c in stdin.keys() {
-    //
-
-    //     stdout.flush().unwrap();
-    //
-    //     // write cursor movement to screen
-    //     write!(stdout,
-    //            "{}-->",
-    //            termion::cursor::Goto(1, y_val))
-    //             .unwrap();
-    // }
-    //
-
-}
-
-/*
-extern crate termion;
-
-use termion::event::Key;
-use termion::input::TermRead;
-use termion::raw::IntoRawMode;
-use std::io::{Write, stdout, stdin};
-
-fn main() {
-    let stdin = stdin();
-    let mut stdout = stdout().into_raw_mode().unwrap();
-
-    write!(stdout,
-           "{}{}q to exit. Type stuff, use alt, and so on.{}",
-           termion::clear::All,
-           termion::cursor::Goto(1, 1),
-           termion::cursor::Hide)
-            .unwrap();
+    // printing. kinda like a frame
     stdout.flush().unwrap();
 
-    for c in stdin.keys() {
-        write!(stdout,
-               "{}{}",
-               termion::cursor::Goto(1, 1),
-               termion::clear::CurrentLine)
-                .unwrap();
+    // variables for constants (bounds)
+    let max_idx = exercisim_modules.len() - 1;
+    let mix_y = 4;
+    let max_y = 4 + exercisim_modules.len();
 
+    // status variables
+    y = 4;
+    let mut idx : usize = 0;
+
+    // react to key input
+    for c in stdin.keys() {
         match c.unwrap() {
-            Key::Char('q') => break,
-            Key::Char(c) => println!("{}", c),
-            Key::Alt(c) => println!("^{}", c),
-            Key::Ctrl(c) => println!("*{}", c),
-            Key::Esc => println!("ESC"),
-            Key::Left => println!("←"),
-            Key::Right => println!("→"),
-            Key::Up => println!("↑"),
-            Key::Down => println!("↓"),
-            Key::Backspace => println!("×"),
+            Key::Char('q') => {
+                write!(stdout, "{}", termion::cursor::Show).unwrap();
+                break;
+            },
+            // moving up
+            // idx decrease
+            // y decrease
+            Key::Up => {
+                if idx > 0 {
+                    // decolor previous
+                    write!(stdout,
+                            "{}{}{}{}",
+                            termion::cursor::Goto(1,y),
+                            color::Fg(color::Reset),
+                            termion::cursor::Hide,
+                            exercisim_modules[idx])
+                            .unwrap();
+                    // hilight current
+                    y = y - 1;
+                    idx = idx - 1;
+                    write!(stdout,
+                            "{}{}{}{}",
+                            color::Fg(color::Red),
+                            termion::cursor::Goto(1,y),
+                            termion::cursor::Hide,
+                            exercisim_modules[idx])
+                            .unwrap();
+                }
+            }
+            // moving up
+            // idx increase
+            // y increase
+            Key::Down => {
+                if idx < max_idx {
+                    // decolor previous
+                    write!(stdout,
+                            "{}{}{}{}",
+                            termion::cursor::Goto(1,y),
+                            color::Fg(color::Reset),
+                            termion::cursor::Hide,
+                            exercisim_modules[idx])
+                            .unwrap();
+                    // hilight current
+                    y = y + 1;
+                    idx = idx + 1;
+                    write!(stdout,
+                            "{}{}{}{}",
+                            color::Fg(color::Red),
+                            termion::cursor::Goto(1,y),
+                            termion::cursor::Hide,
+                            exercisim_modules[idx])
+                            .unwrap();
+                }
+            }
             _ => {}
         }
         stdout.flush().unwrap();
     }
-
-    write!(stdout, "{}", termion::cursor::Show).unwrap();
 }
-*/
