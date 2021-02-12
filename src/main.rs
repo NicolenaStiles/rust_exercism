@@ -180,6 +180,7 @@ fn main () {
     println!("For {}, the difference of squares is {}.", value, square_diff);
 }
 */
+
 // Module 8:
 // Sum Of Multiples
 //
@@ -192,7 +193,7 @@ fn main () {
 // If we list all the natural numbers below 20 that are multiples of 3 or 5, we get
 // 3, 5, 6, 9, 10, 12, 15, and 18.
 // The sum of these multiples is 78.
-
+/*
 mod sum_of_multiples;
 use crate::sum_of_multiples::sum_of_multiples_solver;
 
@@ -201,4 +202,28 @@ fn main() {
     let max_val : u32 = 20;
     let mult_sum : u32 = sum_of_multiples_solver::solve_sum_of_multiples(multiples.as_mut_slice(), max_val);
     println!("{}", mult_sum);
+}
+*/
+// Module 9:
+// Grains
+//
+// calculate_grains
+// Calculate the number of grains of wheat on a chessboard given that the number on each square
+// doubles.
+//
+// INPUT || square : u32
+//
+// There are 64 squares on a chessboard (where square 1 has one grain, square 2 has two grains,
+// and so on).
+// output should display:
+// 1. how many grains were on a given square, and
+// 2. the total number of grains on the chessboard
+mod grains;
+use crate::grains::grains_calculator;
+fn main() {
+    let square_num : u32 = 31;
+    let mut grain_num : u128 = grains_calculator::calculate_square_grains(square_num);
+    println!("{0} grains on square {1}", grain_num, square_num);
+    let mut grain_total : u128 = grains_calculator::calculate_total_grains(square_num);
+    println!("The total number of grains on the board is {0}", grain_total);
 }
