@@ -221,9 +221,13 @@ fn main() {
 mod grains;
 use crate::grains::grains_calculator;
 fn main() {
-    let square_num : u32 = 31;
+    let square_num : u32 = 3;
+
+    // part 1
     let mut grain_num : u128 = grains_calculator::calculate_square_grains(square_num);
     println!("{0} grains on square {1}", grain_num, square_num);
+
+    // part 2
     let mut grain_total : u128 = grains_calculator::calculate_total_grains(square_num);
     println!("The total number of grains on the board is {0}", grain_total);
 }

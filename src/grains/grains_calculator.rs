@@ -17,29 +17,38 @@
 // 1. how many grains were on a given square, and
 // 2. the total number of grains on the chessboard
 
-
 // TODO: FIX! This doesn't work, they're backwards for some reason.
-pub fn calculate_square_grains (square_num : u32) -> u128 {
-    let mut grains_on_square : u128 = 1;
+pub fn calculate_square_grains(square_num : u32) -> u128 {
+    // "grains on square" is set to 2 initially, as it's powers of 2
+    let mut grains_on_square : u128 = 2;
+
+    // bound checking logic
     if square_num < 1 || square_num > 64 {
         println!("Invalid entry! Please enter a number between 1 and 64.");
-    }
-    else {
-        grains_on_square = grains_on_square << (square_num - 1);
+        grains_on_square = 0;
+    } else {
+        grains_on_square = grains_on_square.pow((square_num - 1));
     }
 
     return grains_on_square;
 }
 
 pub fn calculate_total_grains (square_num : u32) -> u128 {
-    let mut curr_grains : u128 = 1;
+
+    // similar powers of 2 logic as in calculate_square_grains function
+    let base_2 : u128 = 2;
     let mut total_grains : u128 = 0;
+    let mut curr_grains : u128 = 0;
+
+    // bound checking logic
     if square_num < 1 || square_num > 64 {
         println!("Invalid entry! Please enter a number between 1 and 64.");
-    }
-    else {
+        total_grains = 0;
+    } else {
         for x in 1..=square_num {
-            total_grains = total_grains + (curr_grains << (x - 1));
+            curr_grains = base_2.pow((x - 1));
+            total_grains = total_grains + curr_grains;
+            println!("Total grains: {:?}", total_grains);
         }
     }
 
